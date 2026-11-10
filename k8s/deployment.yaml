@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-service
+  name: orders-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: order-service
+      app: orders-service
   template:
     metadata:
       labels:
-        app: order-service
+        app: orders-service
     spec:
       containers:
         - name: order-service
-          image: YOUR_DOCKERHUB_USERNAME/order-service:1.0.0
+          image: haripriya1310/nodejs4-backend:v1
           ports:
             - containerPort: 3000
           readinessProbe:
@@ -29,11 +29,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-service
+  name: orders-service
 spec:
   selector:
-    app: order-service
+    app: orders-service
   ports:
     - port: 80
       targetPort: 3000
-  type: ClusterIP
+  type: NodePort
